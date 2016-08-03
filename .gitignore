@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+*.iml
+/target
+/WebContent/WEB-INF/classes
+/.settings/*
+/bin
+/.classpath
+/.project
+/.settings
+/.idea
+/moon.*
+/out

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 参考文档  http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle -->
+    <!-- 启动注解驱动的Spring MVC功能-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- 开启rest 注解 -->
+    <bean class="utils.rest.handler.RestAnnotationHandler"/>
+
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <mvc:default-servlet-handler />
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="utf-8" />
+
+    <!--jackson是将json转换为对象，用@resquestBody注解，需要在3.2版本以上使用-->
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <!--用于将sql后缀名请求转到json响应类型-->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes" >
+            <value>
+                sql=application/json
+            </value>
+        </property>
+    </bean>
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter" /><!-- json转换器 -->
+            </list>
+        </property>
+    </bean>
+
+    <!--<context:load-time-weaver/>-->
+
+
+    <context:annotation-config />
+
+
+
+    <!-- the sessionFactory for mybatis -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="proxoolDataSource" />
+        <property name="mapperLocations" value="classpath*:/**/mapper/*Mapper.xml" /><!-- @see http://mybatis.github.io/spring/zh/factorybean.html -->
+    </bean>
+    <!-- 引入jdbc配置文件 -->
+    <context:property-placeholder location="/WEB-INF/DBPool.properties" />
+    <util:properties id="db" location="/WEB-INF/DBPool.properties"/>
+
+
+    <bean id="proxoolDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="${driver}" />
+        <property name="driverUrl" value="${url}" />
+        <property name="user" value="root" />
+        <property name="password" value="${password}" />
+        <!-- 测试的SQL执行语句 -->
+        <property name="houseKeepingTestSql" value="${testSql}" />
+        <!-- 最少保持的空闲连接数 （默认2个） -->
+        <property name="prototypeCount" value="${initialSize}" />
+        <!-- proxool自动侦察各个连接状态的时间间隔(毫秒),侦察到空闲的连接就马上回收,超时的销毁 默认30秒） -->
+        <!-- <property name="houseKeepingSleepTime" value="${hourseKeepingSleepTime}"/> -->
+        <!-- 最大活动时间(超过此时间线程将被kill,默认为5分钟) -->
+        <property name="maximumActiveTime" value="${maxActive}" />
+        <!-- 最小连接数 （默认2个） -->
+        <property name="minimumConnectionCount" value="${minIdle}" />
+        <!-- 最大连接数 （默认5个） -->
+        <property name="maximumConnectionCount" value="${maxIdle}" />
+    </bean>
+
+    <!-- 自动装配mapper @see http://mybatis.github.io/spring/zh/mappers.html -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="repository" />
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
+    </bean>
+    <!--spring组件扫描-->
+    <context:component-scan base-package="action,service,mapper,dto,repository"/>
+
+    <aop:aspectj-autoproxy />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 定义事务管理器（声明式的事务） -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="proxoolDataSource" />
+    </bean>
+
+    <!--cache配置-->
+    <!-- cacheManager 需要 -->
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource">-->
+            <!--<ref bean="proxoolDataSource" />-->
+        <!--</property>-->
+    <!--</bean>-->
+
+</beans>
