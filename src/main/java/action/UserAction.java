@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import service.UserService;
 import utils.WebResponse;
 import utils.rest.annotation.Get;
@@ -46,6 +47,7 @@ public class UserAction {
      * @return {"success":true,"result":1,"throwable":null,"permission":true}
      */
     @RequestMapping("/add")
+
     @ResponseBody
     public WebResponse add(@RequestParam("username")String username,@RequestParam("password")String password){
         User user = new User();
@@ -53,4 +55,5 @@ public class UserAction {
         user.setPassword(password);
         return WebResponse.success(userService.save(user));
     }
+
 }

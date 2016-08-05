@@ -27,7 +27,7 @@
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
@@ -64,6 +64,10 @@
     <!--<context:load-time-weaver/>-->
 
 
+    <!--他的作用是式地向 Spring 容器注册AutowiredAnnotationBeanPostProcessor(@Autowired)、
+    CommonAnnotationBeanPostProcessor(@ Resource 、@ PostConstruct、@ PreDestroy)、
+    PersistenceAnnotationBeanPostProcessor(@PersistenceContext) 以及
+    RequiredAnnotationBeanPostProcessor(@Required) 这 4 个BeanPostProcessor。-->
     <context:annotation-config />
 
 
@@ -120,5 +124,13 @@
             <!--<ref bean="proxoolDataSource" />-->
         <!--</property>-->
     <!--</bean>-->
+
+    <!--拦截器:多个拦截器时，按顺序执行，/**表示所以url-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="utils.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
