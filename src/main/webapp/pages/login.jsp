@@ -12,8 +12,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://localhost:8080/js/login.js"></script>
-    <link href="http://localhost:8080/css/login.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/login.js"></script>
+    <link href="/css/login.css" rel="stylesheet" />
     <title>登录</title>
 </head>
 <body class="body">
@@ -24,11 +24,11 @@
             </div>
             <div class="form-group">
                 <label class="control-label">用户名</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="username">
             </div>
             <div class="form-group">
                 <label class="control-label">密码</label>
-                <input type="password" class="form-control">
+                <input type="password" class="form-control" id="password">
             </div>
             <button type="button" class="btn btn-default" id="submit">Submit</button>
         </form>

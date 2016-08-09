@@ -8,6 +8,13 @@
     <context id="mybatis3">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/menter" userId="root" password="123456"></jdbcConnection>
         <javaModelGenerator targetPackage="dto" targetProject="src/main/java"></javaModelGenerator>
+        <!--<table tableName="role" domainObjectName="Role"></table>-->
+        <!--<table tableName="cv" domainObjectName="Cv"></table>-->
+        <!--<table tableName="system" domainObjectName="System"></table>-->
+        <!--<table tableName="teacher" domainObjectName="Teacher"></table>-->
+        <!--<table tableName="student" domainObjectName="Student"></table>-->
+        <!--<table tableName="stu_tea" domainObjectName="stuTea"></table>-->
+        <!--<table tableName="tea_stu" domainObjectName="teaStu"></table>-->
         <table tableName="user" domainObjectName="User"></table>
     </context>
 </generatorConfiguration>

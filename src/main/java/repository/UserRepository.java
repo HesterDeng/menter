@@ -15,4 +15,11 @@ public interface UserRepository {
      * @return id
      */
     void save(@Param("user") User user);
+
+    /**
+     * 登录，通过用户名查找密码
+     * @param username
+     * @return
+     */
+    User selectUserByName(String username);
 }

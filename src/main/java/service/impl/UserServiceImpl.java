@@ -19,4 +19,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return user.getId();
     }
+
+    @Override
+    public User login(User user) {
+        User user1 =userRepository.selectUserByName(user.getUsername());
+        if (user1.getPassword().equals(user.getPassword())){
+            return user1;
+        }
+        return null;
+    }
 }

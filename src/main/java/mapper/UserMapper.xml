@@ -9,4 +9,8 @@
         (username, password)
         VALUES (#{user.username},#{user.password})
     </insert>
+
+    <select id="selectUserByName" resultType="dto.User">
+        SELECT id,username,password FROM USER WHERE username = #{username};
+    </select>
 </mapper>

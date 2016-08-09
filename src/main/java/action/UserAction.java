@@ -2,13 +2,14 @@ package action;
 
 import dto.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import service.UserService;
 import utils.WebResponse;
 import utils.rest.annotation.Get;
+import utils.rest.annotation.Post;
 
 import javax.annotation.Resource;
 
@@ -20,6 +21,20 @@ import javax.annotation.Resource;
 public class UserAction {
     @Resource
     private UserService userService;
+
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    @Get("/login")
+    @ResponseBody
+    public WebResponse login(@RequestParam("username") String username,@RequestParam("password") String password){
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        return WebResponse.success(userService.login(user));
+    }
 
     /**
      * 保存用户信息

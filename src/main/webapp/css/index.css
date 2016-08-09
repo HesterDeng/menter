@@ -33,7 +33,7 @@
 /* Orientation-dependent styles for the content of the menu */
 
 .cbp-spmenu-vertical {
-    width: 240px;
+    width: 20%;
     height: 100%;
     top: 0;
     z-index: 1000;
@@ -44,12 +44,6 @@
     padding: 1em;
 }
 
-/* Vertical menu that slides from the left or right */
-
-.cbp-spmenu-left {
-    left: -240px;
-}
-
 .cbp-spmenu-left.cbp-spmenu-open {
     left: 0px;
 }
@@ -58,23 +52,8 @@
     right: 0px;
 }
 
-@media screen and (max-height: 26.375em){
-
-    .cbp-spmenu-vertical {
-        font-size: 90%;
-        width: 190px;
-    }
-
-    .cbp-spmenu-left,
-    .cbp-spmenu-push-toleft {
-        left: -190px;
-    }
-
-    .cbp-spmenu-right {
-        right: -190px;
-    }
-
-    .cbp-spmenu-push-toright {
-        left: 190px;
-    }
+.main-container{
+    width: 80%;
+    height: 100%;
+    margin-left: 20%;
 }

@@ -31,11 +31,13 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--注意：mapping和location的名字必须相同，否者错误-->
     <mvc:default-servlet-handler />
     <mvc:resources mapping="/js/*" location="/js/" />
     <mvc:resources mapping="/css/*" location="/css/"/>
     <mvc:resources mapping="/img/*" location="/img/"/>
     <mvc:resources mapping="/plugin/*" location="/plugin/"/>
+    <mvc:resources mapping="/pages/*" location="/pages/" />
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
           p:defaultEncoding="utf-8" />

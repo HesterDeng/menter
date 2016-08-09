@@ -35,10 +35,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         String path1 = getContext(httpServletRequest)+"/";//http://localhost:8080/
         String path2 = getContext(httpServletRequest)+"user/login";//http://localhost:8080/user/login
         if(url.equals(path1)||url.equals(path2)){
-            httpServletRequest.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(httpServletRequest,httpServletResponse);
+            httpServletRequest.getRequestDispatcher("/pages/login.jsp").forward(httpServletRequest,httpServletResponse);
             return false;
         }
-        return false;
+        return true;
     }
 
     private String getContext(HttpServletRequest request){

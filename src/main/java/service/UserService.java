@@ -12,4 +12,11 @@ public interface UserService {
      * @return id
      */
     Long save(User user);
+
+    /**
+     * 登录，确认用户名和密码的正确性，返回
+     * @param user
+     * @return
+     */
+    User login(User user);
 }

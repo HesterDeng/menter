@@ -1,25 +1,26 @@
 $(function(){
-    var contextPath = "http://localhost:8080"
     //登录动作
     $("#submit").click(function(){
         var username = $("#username").val();
         var password = $("#password").val();
-        if(username != ""&&password!=""){
+        if(username!=""&&password!=""){
             $.ajax({
-                url: contextPath+"/user/login",
+                url: "/user/login",
                 data: {
                     username:username,
                     password:password
                 },
                 type: "GET",
-                dataType : "json",
+                dataType : "json"
             }).done(function(result){
                 if(result.success){
-                    $.href(contextPath+"/index");
+                    location.href="/pages/index.jsp";
                 }
             }).fail(function(){
-                alert("bad");
+                alert("用户不存在");
             });
+        }else {
+            alert("请填写内容");
         }
 
     });
