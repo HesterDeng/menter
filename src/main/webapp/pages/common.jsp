@@ -11,7 +11,9 @@
     <script type="text/javascript" src="/plugin/jquery/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/plugin/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/plugin/kandytabs/kandytabs.pack.js"></script>
     <link href="/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugin/kandytabs/kandytabs.css" rel="stylesheet">
 </head>
 <body>
 
