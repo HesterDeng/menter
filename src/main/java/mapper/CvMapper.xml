@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.CvRepository">
+    <select id="addCv" resultType="java.lang.Long">
+        INSERT INTO cv (cvexperience,cvresult,cvother) VALUES (#{cv.cvexperience},#{cv.cvresult},#{cv.cvother});SELECT @@Identity
+    </select>
+    <select id="selectCv" resultType="dto.Cv">
+        SELECT cvexperience,cvresult,cvother FROM cv WHERE id = ${cvid};
+    </select>
+    <update id="updateCv">
+        UPDATE cv SET cvexperience=#{cv.cvexperience},
+        cvresult=#{cv.cvresult},cvother=#{cv.cvother} WHERE id =#{cv.id};
+    </update>
+</mapper>

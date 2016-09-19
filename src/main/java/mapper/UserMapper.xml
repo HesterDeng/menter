@@ -6,11 +6,31 @@
             select LAST_INSERT_ID() AS id
         </selectKey>
         insert INTO user
-        (username, password)
-        VALUES (#{user.username},#{user.password})
+        (username, password,roleid)
+        VALUES (#{user.username},#{user.password},#{user.roleid})
     </insert>
+    <update id="updateUser">
+        UPDATE user SET username=#{user.username},password=#{user.password}
+        ,roleid=#{user.roleid} WHERE id=#{user.id};
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM user WHERE id=${userid};
+    </delete>
 
     <select id="selectUserByName" resultType="dto.User">
         SELECT id,username,password FROM USER WHERE username = #{username};
+    </select>
+
+    <select id="list" resultType="HashMap">
+        SELECT id,username,roleid FROM user LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="listCount" resultType="Integer">
+        SELECT COUNT(*) AS total FROM USER;
+    </select>
+    <select id="search" resultType="HashMap">
+        SELECT id,username,roleid FROM user WHERE username LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="searchCount" resultType="Integer">
+        SELECT COUNT(*) FROM user WHERE username LIKE "%${page.search}%";
     </select>
 </mapper>

@@ -27,18 +27,23 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
-        String username = (String)session.getAttribute("username");
-        if(username != null){
+        Long id = (Long)session.getAttribute("id");
+        if(id != null){
             return true;
         }
         String url = httpServletRequest.getRequestURL().toString();
         String path1 = getContext(httpServletRequest)+"/";//http://localhost:8080/
-        String path2 = getContext(httpServletRequest)+"user/login";//http://localhost:8080/user/login
-        if(url.equals(path1)||url.equals(path2)){
+        String path2 = getContext(httpServletRequest)+"/user/login";//http://localhost:8080/user/login
+        String path3 = getContext(httpServletRequest)+"/student/login";
+        String path4 = getContext(httpServletRequest)+"/teacher/login";
+        if (url.equals(path2)||url.equals(path3)||url.equals(path4)){
+            return true;
+        }else if (url.contains("plugin")){
+            return true;
+        } else {
             httpServletRequest.getRequestDispatcher("/pages/login.jsp").forward(httpServletRequest,httpServletResponse);
             return false;
         }
-        return true;
     }
 
     private String getContext(HttpServletRequest request){

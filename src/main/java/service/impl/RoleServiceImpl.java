@@ -1,12 +1,11 @@
 package service.impl;
 
-import dto.Role;
 import org.springframework.stereotype.Service;
 import repository.RoleRepository;
 import service.RoleService;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Created by xheart on 2016/8/14.
@@ -17,7 +16,10 @@ public class RoleServiceImpl implements RoleService {
     private RoleRepository roleRepository;
 
     @Override
-    public List<Role> list(int pageindex, int number) {
-        return roleRepository.list(pageindex,number);
+    public HashMap<String, Object> list(int pageNumber, int pageSize) {
+        HashMap<String,Object> page = new HashMap<String, Object>();
+        page.put("total",roleRepository.listCount());
+        page.put("rows",roleRepository.list(pageNumber,pageSize));
+        return page;
     }
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.TeacherRepository">
+    <select id="list" resultType="HashMap">
+        SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="listCount" resultType="Integer">
+        SELECT COUNT(*) AS total FROM teacher;
+    </select>
+
+    <insert id="addTeacher">
+        <selectKey resultType="Long" keyProperty="teacher.id" order="AFTER">
+            select LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO teacher (name,password) VALUES (#{teacher.name},#{teacher.password});
+    </insert>
+    <delete id="deleteTeacher">
+        DELETE FROM teacher WHERE id=${teacherid};
+    </delete>
+    <select id="login" resultType="dto.Teacher">
+        SELECT id,name,password FROM teacher WHERE name = #{name};
+    </select>
+    <update id="updatePassword">
+        UPDATE teacher SET password=#{teacher.password} WHERE id = #{teacher.id};
+    </update>
+    <select id="selectById" resultType="dto.Teacher">
+        SELECT name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher WHERE id=${id};
+    </select>
+    <update id="updateInformation">
+        UPDATE teacher SET sex=#{teacher.sex},xueli=#{teacher.xueli},
+        xuewei=#{teacher.xuewei},position=#{teacher.position},
+        duty=#{teacher.duty},schoolage=#{teacher.schoolage},
+        tellphone=#{teacher.tellphone},email=#{teacher.email},
+        qq=#{teacher.qq},campus=#{teacher.campus}
+        WHERE id =#{teacher.id};
+    </update>
+
+    <select id="listStudent" resultType="HashMap">
+        SELECT id,name,sex,grade,tellphone,qq,email,cvid
+         FROM student WHERE id IN
+        (SELECT studentid FROM stu_tea WHERE listnumber=number AND teacherid=${teacherid} AND isselect=FALSE)
+        AND name LIKE  "%${page.search}%"
+        LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="listCountStu" resultType="Integer">
+        SELECT COUNT(*)
+         FROM student WHERE id IN
+        (SELECT studentid FROM stu_tea WHERE listnumber=number AND teacherid=${teacherid} AND isselect=FALSE)
+        AND name LIKE  "%${page.search}%";
+    </select>
+    <select id="countStudent" resultType="Integer">
+        SELECT COUNT(*) FROM stu_tea WHERE teacherid = ${teacherid} AND isselect=TRUE;
+    </select>
+    <update id="checkStudent">
+        UPDATE stu_tea SET isselect=TRUE WHERE studentid=${studentid} AND teacherid=${teacherid};
+    </update>
+    <update id="nextTeacher">
+        UPDATE stu_tea SET number=number+1 WHERE studentid=${studentid};
+    </update>
+    <update id="deleteStudent">
+        UPDATE stu_tea SET isselect=FALSE WHERE studentid=${studentid} AND teacherid=${teacherid};
+    </update>
+    <select id="selectStudents" resultType="HashMap">
+        SELECT id,name,sex,grade,tellphone,qq,email,cvid
+         FROM student WHERE id IN
+         (SELECT studentid FROM stu_tea WHERE teacherid=${teacherid} AND isselect=TRUE)
+         AND name LIKE  "%${page.search}%"
+         LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="stuCount" resultType="Integer">
+        SELECT COUNT(*)
+         FROM student WHERE id IN
+         (SELECT studentid FROM stu_tea WHERE teacherid=${teacherid} AND isselect=TRUE)
+         AND name LIKE  "%${page.search}%";
+    </select>
+    <select id="search" resultType="HashMap">
+        SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher WHERE name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="searchCount" resultType="Integer">
+        SELECT COUNT(*) FROM teacher WHERE name LIKE "%${page.search}%";
+    </select>
+    <update id="updateCvid">
+        UPDATE teacher SET cvid=${cvid} WHERE id=${id};
+    </update>
+</mapper>

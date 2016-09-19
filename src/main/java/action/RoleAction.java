@@ -1,17 +1,14 @@
 package action;
 
-import dto.Role;
-import dto.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.RoleService;
-import utils.WebResponse;
 import utils.rest.annotation.Get;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Created by xheart on 2016/8/14.
@@ -27,7 +24,7 @@ public class RoleAction {
      */
     @Get("/list")
     @ResponseBody
-    public List<Role> login(@RequestParam("offset") int pageNumber, @RequestParam("limit") int pageSize){
+    public HashMap<String, Object> list(@RequestParam("offset") int pageNumber, @RequestParam("limit") int pageSize){
         return roleService.list(pageNumber,pageSize);
     }
 }

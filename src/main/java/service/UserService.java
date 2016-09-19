@@ -1,6 +1,9 @@
 package service;
 
+import dto.Page;
 import dto.User;
+
+import java.util.HashMap;
 
 /**
  * Created by xheart on 2016/8/3.
@@ -19,4 +22,23 @@ public interface UserService {
      * @return
      */
     User login(User user);
+
+    /**
+     * 删除user
+     * @param id
+     */
+    Long delete(Long id);
+
+    /**
+     * 更新user
+     * @param user
+     * @return
+     */
+    User update(User user);
+
+    /**
+     * 列出管理员
+     * @return 管理员列表
+     */
+    HashMap<String, Object> list(Page page);
 }

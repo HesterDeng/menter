@@ -41,9 +41,9 @@
     <thead>
     <tr>
         <th data-field="id">ID</th>
-        <th data-field="rolename">角色名字</th>
-        <th data-field="rolepower">角色权限</th>
-        <th>操作</th>
+        <th data-field="rolename" data-editable="true">角色名字</th>
+        <th data-field="rolepower" data-editable="true">角色权限</th>
+        <th data-field="option">操作</th>
     </tr>
     </thead>
 </table>

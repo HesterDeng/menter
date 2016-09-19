@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.StudentRepository">
+    <select id="list" resultType="HashMap">
+        SELECT id,name,sex,grade,tellphone,qq,email,cvid FROM student LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="listCount" resultType="Integer">
+        SELECT COUNT(*) AS total FROM student;
+    </select>
+    <insert id="addStudent">
+        <selectKey resultType="Long" keyProperty="student.id" order="AFTER">
+            select LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO student (name,password) VALUES (#{student.name},#{student.password});
+    </insert>
+    <delete id="deleteStudent">
+        DELETE FROM student WHERE id=${studentid};
+    </delete>
+
+    <select id="login" resultType="dto.Student">
+        SELECT id,name,password FROM student WHERE name = #{name};
+    </select>
+    <update id="updatePassword">
+        UPDATE student SET password=#{student.password} WHERE id = #{student.id};
+    </update>
+    <select id="selectById" resultType="dto.Student">
+        SELECT name,sex,grade,tellphone,qq,email,cvid FROM student WHERE id = ${id};
+    </select>
+    <update id="updateInformation">
+        UPDATE student SET sex=#{student.sex},grade=#{student.grade},
+        tellphone=#{student.tellphone},qq=#{student.qq},email=#{student.email}
+        WHERE id=#{student.id};
+    </update>
+    <update id="updateCvid">
+        UPDATE student SET cvid=#{cvid} WHERE id=#{id};
+    </update>
+
+
+    <insert id="selectTeacher">
+        INSERT INTO stu_tea (studentid,teacherid,listnumber)
+        VALUES (#{stuTea.studentid},#{stuTea.teacherid},#{stuTea.listnumber});
+    </insert>
+    <select id="getMax" resultType="Integer">
+        SELECT MAX(listnumber) FROM stu_tea WHERE studentid=#{studentid};
+    </select>
+    <select id="teachers" resultType="HashMap">
+        SELECT listnumber,id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid
+        FROM teacher JOIN stu_tea ON id=teacherid WHERE studentid=#{studentid} LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="teacherCount" resultType="Integer">
+        SELECT COUNT(*) FROM stu_tea WHERE studentid=#{studentid};
+    </select>
+    <update id="up">
+        UPDATE stu_tea SET listnumber=listnumber-1 WHERE studentid=#{studentid} AND teacherid=#{teacherid};
+    </update>
+    <update id="down">
+        UPDATE stu_tea SET listnumber=listnumber+1 WHERE studentid=#{studentid} AND listnumber=#{listnumber};
+    </update>
+    <update id="updateTea">
+        UPDATE stu_tea SET listnumber=listnumber-1 WHERE studentid=#{studentid} AND listnumber>#{listnumber};
+    </update>
+    <delete id="deleteTea">
+        DELETE FROM stu_tea WHERE studentid=#{studentid} AND listnumber=#{listnumber};
+    </delete>
+
+    <select id="search" resultType="HashMap">
+        SELECT id,name,sex,grade,tellphone,qq,email,cvid FROM student WHERE name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="searchCount" resultType="Integer">
+        SELECT COUNT(*) FROM student WHERE name LIKE "%${page.search}%";
+    </select>
+    <select id="selectTeas" resultType="HashMap">
+        SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher
+        WHERE id NOT IN (SELECT teacherid AS id FROM stu_tea WHERE studentid=#{studentid})AND name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
+    </select>
+    <select id="teasCount" resultType="Integer">
+        SELECT COUNT(*) FROM teacher
+        WHERE id NOT IN (SELECT teacherid AS id FROM stu_tea WHERE studentid=#{studentid})AND name LIKE "%${page.search}%";
+    </select>
+</mapper>

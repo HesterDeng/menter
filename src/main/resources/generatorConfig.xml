@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="D:\ggdownload\mysql-connector-java-5.1.39\mysql-connector-java-5.1.39\mysql-connector-java-5.1.39-bin.jar"/>
+    <classPathEntry location="D:\java\mysql-connector-java-5.0.8-bin.jar"/>
     <context id="mybatis3">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/menter" userId="root" password="123456"></jdbcConnection>
         <javaModelGenerator targetPackage="dto" targetProject="src/main/java"></javaModelGenerator>
         <!--<table tableName="role" domainObjectName="Role"></table>-->
         <!--<table tableName="cv" domainObjectName="Cv"></table>-->
         <!--<table tableName="system" domainObjectName="System"></table>-->
-        <!--<table tableName="teacher" domainObjectName="Teacher"></table>-->
+        <table tableName="teacher" domainObjectName="Teacher"></table>
         <!--<table tableName="student" domainObjectName="Student"></table>-->
-        <!--<table tableName="stu_tea" domainObjectName="stuTea"></table>-->
+        <!--<table tableName="stu_tea" domainObjectName="StuTea"></table>-->
         <!--<table tableName="tea_stu" domainObjectName="teaStu"></table>-->
-        <table tableName="user" domainObjectName="User"></table>
+        <!--<table tableName="user" domainObjectName="User"></table>-->
     </context>
 </generatorConfiguration>

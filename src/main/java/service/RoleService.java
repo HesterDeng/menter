@@ -1,8 +1,6 @@
 package service;
 
-import dto.Role;
-
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Created by xheart on 2016/8/14.
@@ -12,5 +10,5 @@ public interface RoleService {
      * 列出角色
      * @return 角色列表
      */
-    List<Role> list(int pageindex, int number);
+    HashMap<String, Object> list(int pageNumber, int pageSize);
 }

@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/plugin/kandytabs/kandytabs.pack.js"></script>
     <link href="/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/plugin/kandytabs/kandytabs.css" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet">
 </head>
 <body>
 

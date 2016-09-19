@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.SystemRepository">
+    <update id="updateTeacher">
+        UPDATE system SET teacherselect=${teacherNumber};
+    </update>
+    <update id="updateStudent">
+        UPDATE system SET studentselect=${studentNumber};
+    </update>
+    <update id="addMark">
+        UPDATE system SET marksum =marksum+${mark},usernumber= usernumber+1;
+    </update>
+    <select id="teacherNumber" resultType="Integer">
+        SELECT teacherselect FROM system;
+    </select>
+    <select id="studentNumber" resultType="Integer">
+        SELECT studentselect FROM system;
+    </select>
+    <select id="getMark" resultType="dto.System">
+        SELECT marksum,usernumber FROM system;
+    </select>
+</mapper>
