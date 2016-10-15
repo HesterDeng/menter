@@ -26,7 +26,7 @@ public interface SystemRepository {
      * 添加一个人的打分分数
      * @param mark
      */
-    int addMark(@Param("mark")int mark);
+    int addMark(@Param("mark")int mark,@Param("advice")String advice);
 
     /**
      * 返回老师最大选择数量

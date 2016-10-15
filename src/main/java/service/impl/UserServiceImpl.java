@@ -1,13 +1,17 @@
 package service.impl;
 
 import dto.Page;
+import dto.Result;
 import dto.User;
 import org.springframework.stereotype.Service;
 import repository.UserRepository;
 import service.UserService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by xheart on 2016/8/3.
@@ -20,6 +24,11 @@ public class UserServiceImpl implements UserService {
     public Long save(User user) {
         userRepository.save(user);
         return user.getId();
+    }
+
+    @Override
+    public int updatePassword(User user) {
+        return userRepository.updatePassword(user);
     }
 
     @Override
@@ -56,5 +65,20 @@ public class UserServiceImpl implements UserService {
             return pageList;
         }
 
+    }
+
+    @Override
+    public List<String> allReject() {
+        return userRepository.allReject();
+    }
+
+    @Override
+    public int endCount() {
+        return userRepository.endCount();
+    }
+
+    @Override
+    public List<Result> endResult() {
+        return userRepository.endResult();
     }
 }

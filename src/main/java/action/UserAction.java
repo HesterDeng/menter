@@ -1,6 +1,7 @@
 package action;
 
 import dto.Page;
+import dto.Result;
 import dto.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,14 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import repository.SystemRepository;
 import service.UserService;
+import utils.SimpleMailSender;
 import utils.WebResponse;
-import utils.rest.annotation.Delete;
 import utils.rest.annotation.Get;
 import utils.rest.annotation.Post;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by xheart on 2016/8/3.
@@ -45,6 +48,16 @@ public class UserAction {
         }
         request.getSession().setAttribute("id", user.getId());
         return WebResponse.success(user);
+    }
+
+    @Get("updatePassword")
+    @ResponseBody
+    public WebResponse updatePassword(HttpServletRequest request,@RequestParam("password")String password){
+        Long id=(Long)request.getSession().getAttribute("id");
+        User user = new User();
+        user.setId(id);
+        user.setPassword(password);
+        return WebResponse.success(userService.updatePassword(user));
     }
 
     @Get("delete")
@@ -111,8 +124,8 @@ public class UserAction {
 
     @Get("mark")
     @ResponseBody
-    public WebResponse addMark(@RequestParam("mark")int mark){
-        return WebResponse.success(systemRepository.addMark(mark));
+    public WebResponse addMark(@RequestParam("mark")int mark,@RequestParam("advice")String advice){
+        return WebResponse.success(systemRepository.addMark(mark, advice + "---"));
     }
 
     @Get("markSum")
@@ -126,6 +139,32 @@ public class UserAction {
     public WebResponse close(HttpServletRequest request){
         request.getSession().removeAttribute("id");
         return WebResponse.success();
+    }
+
+    @Get("isResult")
+    @ResponseBody
+    public WebResponse isResult() throws MessagingException {
+        List<String> allReject = userService.allReject();
+        if(allReject!=null&&allReject.size()!=0){
+            SimpleMailSender sender = new SimpleMailSender("1334995739@qq.com","pcihjbujzzdpbadi");
+            sender.send(allReject,"你选择的导师已全部拒绝你，请登陆导师选择系统，另行选择！","导师选择系统邮件");
+            return WebResponse.success(false);
+        }else {
+            if(userService.endCount()==0){
+                List<Result> results = userService.endResult();
+                SimpleMailSender sender = new SimpleMailSender("1334995739@qq.com","pcihjbujzzdpbadi");
+                StringBuffer content =new StringBuffer();
+                content.append("老师----学生<br>");
+                for(int i=0;i<results.size();i++){
+                    Result result=results.get(i);
+                    content.append(result.getTeaname()+"---"+result.getStuname()+"<br>");
+                }
+                sender.send("1334995739@qq.com", "导师选择系统邮件",content.toString());
+                return WebResponse.success(true);
+            }else {
+                return WebResponse.success(false);
+            }
+        }
     }
 
 }

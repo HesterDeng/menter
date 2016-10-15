@@ -4,7 +4,6 @@ import dto.Cv;
 import dto.Page;
 import dto.StuTea;
 import dto.Student;
-import dto.StudentCV;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +14,10 @@ import service.StudentService;
 import utils.WebResponse;
 import utils.rest.annotation.Get;
 import utils.rest.annotation.Post;
-import utils.rest.annotation.Put;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Esther on 2016/8/20.
@@ -68,11 +65,27 @@ public class StudentAction {
 
     @Get("updatePassword")
     @ResponseBody
-    public WebResponse updatePassword(@RequestParam("id")Long id,@RequestParam("password")String password){
+    public WebResponse updatePassword(HttpServletRequest request,@RequestParam("password")String password){
+        Long id=(Long)request.getSession().getAttribute("id");
         Student student = new Student();
         student.setId(id);
         student.setPassword(password);
         return WebResponse.success(studentService.updatePassword(student));
+    }
+
+    @Get("isselect")
+    @ResponseBody
+    public WebResponse isselect(HttpServletRequest request){
+        Long id=(Long)request.getSession().getAttribute("id");
+        return WebResponse.success(studentService.isselect(id));
+    }
+
+    @Get("updateIsselect")
+    @ResponseBody
+    public WebResponse updateIsselect(HttpServletRequest request){
+        Long id=(Long)request.getSession().getAttribute("id");
+        studentService.updateIsselect(id);
+        return WebResponse.success();
     }
 
     @Get("getCV")

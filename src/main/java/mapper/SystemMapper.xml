@@ -8,15 +8,15 @@
         UPDATE system SET studentselect=${studentNumber};
     </update>
     <update id="addMark">
-        UPDATE system SET marksum =marksum+${mark},usernumber= usernumber+1;
+        UPDATE system SET marksum =marksum+${mark},usernumber= usernumber+1,advice=CONCAT(advice,#{advice});
     </update>
-    <select id="teacherNumber" resultType="Integer">
+    <select id="teacherNumber" resultType="java.lang.Integer">
         SELECT teacherselect FROM system;
     </select>
-    <select id="studentNumber" resultType="Integer">
+    <select id="studentNumber" resultType="java.lang.Integer">
         SELECT studentselect FROM system;
     </select>
     <select id="getMark" resultType="dto.System">
-        SELECT marksum,usernumber FROM system;
+        SELECT marksum,usernumber,teacherselect,studentselect,advice FROM system;
     </select>
 </mapper>

@@ -3,7 +3,6 @@ package repository;
 import dto.Page;
 import dto.Student;
 import dto.Teacher;
-import dto.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -135,4 +134,10 @@ public interface TeacherRepository {
      * @return
      */
     int updateCvid(@Param("cvid")Long cvid,@Param("id")Long id);
+
+    /**
+     * 还有多少学生为填完志愿
+     * @return
+     */
+    int isselect();
 }

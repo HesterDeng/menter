@@ -5,14 +5,14 @@
   Time: 20:51
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <html>
 <head>
   <script type="text/javascript" src="/plugin/bootstrap/js/bootstrap-table.js"></script>
   <link rel="stylesheet" href="/plugin/bootstrap/css/bootstrap-table.min.css">
   <script type="text/javascript" src="/js/selectTea.js"></script>
-    <title>å­¦ç”Ÿå·²é€‰åˆ—è¡¨</title>
+    <title>Ñ§ÉúÒÑÑ¡ÁÐ±í</title>
 </head>
 <body>
 <table data-toggle="table" data-url="/student/teachers" data-classes="table table-hover"
@@ -23,24 +23,25 @@
   <thead>
   <tr>
     <th data-field="id" class="hide">id</th>
-    <th data-field="listnumber">åºåˆ—</th>
-    <th data-field="name">å§“å</th>
-    <th data-field="sex">æ€§åˆ«</th>
-    <th data-field="xueli">å­¦åŽ†</th>
-    <th data-field="xuewei">å­¦ä½</th>
-    <th data-field="position">èŒç§°</th>
-    <th data-field="duty">èŒåŠ¡</th>
-    <th data-field="schoolage">æ•™é¾„</th>
-    <th data-field="tellphone">ç§»åŠ¨ç”µè¯</th>
-    <th data-field="email">é‚®ç®±</th>
+    <th data-field="listnumber">ÐòÁÐ</th>
+    <th data-field="name">ÐÕÃû</th>
+    <th data-field="sex">ÐÔ±ð</th>
+    <th data-field="xueli">Ñ§Àú</th>
+    <th data-field="xuewei">Ñ§Î»</th>
+    <th data-field="position">Ö°³Æ</th>
+    <th data-field="duty">Ö°Îñ</th>
+    <th data-field="schoolage">½ÌÁä</th>
+    <th data-field="tellphone">ÒÆ¶¯µç»°</th>
+    <th data-field="email">ÓÊÏä</th>
     <th data-field="qq">QQ</th>
-    <th data-field="campus">æ ¡åŒº</th>
-    <th data-field="cvid" data-formatter="nameFormatter">ç®€åŽ†</th>
-    <th data-formatter="actionFormatter" data-events="actionEvents">æ“ä½œ</th>
+    <th data-field="campus">Ð£Çø</th>
+    <th data-field="cvid" data-formatter="nameFormatter">¼òÀú</th>
+    <th data-formatter="actionFormatter" data-events="actionEvents" class="option">²Ù×÷</th>
   </tr>
   </thead>
 </table>
-<!-- æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
+<button type="button" class="btn btn-primary btn-lg btn-block option" data-target="#isselectModal" data-toggle="modal">È·¶¨Ìá½»</button>
+<!-- Ä£Ì¬¿ò£¨Modal£© -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -53,19 +54,19 @@
         </h4>
       </div>
       <div class="modal-body">
-        <p>æ‚¨ç¡®è®¤è¦åˆ é™¤<p id="menter"></p>å¯¼å¸ˆå—ï¼Ÿ</p>
+        <p>ÄúÈ·ÈÏÒªÉ¾³ý<p id="menter"></p>µ¼Ê¦Âð£¿</p>
       </div>
       <div class="modal-footer">
         <div class="modal-footer">
           <input type="hidden" class="id"/>
-          <button type="button" class="btn btn-default" data-dismiss="modal">å–æ¶ˆ</button>
-          <a  onclick="deleteSubmit()" class="btn btn-success" data-dismiss="modal">ç¡®å®š</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">È¡Ïû</button>
+          <a  onclick="deleteSubmit()" class="btn btn-success" data-dismiss="modal">È·¶¨</a>
         </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
-<!-- æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
+<!-- Ä£Ì¬¿ò£¨Modal£© -->
 <div class="modal fade" id="cvModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,16 +79,51 @@
         </h4>
       </div>
       <div class="modal-body">
-        <h1>ç»åŽ†</h1>
-        <p class="lead" id="experience"></p>
-        <h1>æˆå°±</h1>
-        <p class="lead" id="result"></p>
-        <h1>å…¶ä»–</h1>
-        <p class="lead" id="other"></p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">¾­Àú</h3>
+          </div>
+          <div class="panel-body" id="experience">
+          </div>
+        </div>
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">³É¾Í</h3>
+          </div>
+          <div class="panel-body" id="result">
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">ÆäËû</h3>
+          </div>
+          <div class="panel-body" id="other">
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">å…³é—­</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<div class="modal fade" id="isselectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>µ¼Ê¦ÁÐ±íÒ»µ©È·¶¨½«²»¿É¸ü¸Ä£¬ÇëÉ÷ÖØÑ¡Ôñ¡£ÄúÈ·ÈÏµ¼Ê¦ÁÐ±í²»¸ÄÁËÂð£¿</p>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">È¡Ïû</button>
+          <a  onclick="submitSelect()" class="btn btn-success" data-dismiss="modal">È·¶¨</a>
         </div>
       </div>
     </div><!-- /.modal-content -->

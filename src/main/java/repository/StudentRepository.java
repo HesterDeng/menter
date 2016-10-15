@@ -6,7 +6,6 @@ import dto.Student;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -148,4 +147,17 @@ public interface StudentRepository {
      * @return
      */
     int deleteTea(@Param("studentid")Long studentid,@Param("listnumber") int listnumber);
+
+    /**
+     * 学生是否已经确定了选择
+     * @param id
+     * @return
+     */
+    Boolean isselect(@Param("id")Long id);
+
+    /**
+     * 学生确定不更改了
+     * @param id
+     */
+    void updateIsselect(@Param("id")Long id);
 }

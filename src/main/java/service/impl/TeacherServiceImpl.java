@@ -1,7 +1,6 @@
 package service.impl;
 
 import dto.Page;
-import dto.Student;
 import dto.Teacher;
 import org.springframework.stereotype.Service;
 import repository.SystemRepository;
@@ -10,7 +9,6 @@ import service.TeacherService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Esther on 2016/8/20.
@@ -146,5 +144,13 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int updateCvid(Long cvid, Long id) {
         return teacherRepository.updateCvid(cvid,id);
+    }
+
+    @Override
+    public Boolean isselect() {
+        if(teacherRepository.isselect()>0){
+            return false;
+        }
+        return true;
     }
 }

@@ -5,33 +5,31 @@
   Time: 9:41
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="/js/role.js"></script>
     <script type="text/javascript" src="/plugin/bootstrap/js/bootstrap-table.js"></script>
     <link href="/css/role.css" rel="stylesheet" />
     <link rel="stylesheet" href="/plugin/bootstrap/css/bootstrap-table.min.css">
-    <title>瑙掕壊绠＄悊</title>
+    <title>角色管理</title>
 </head>
 <body>
-<%--鎼滅储琛ㄥ崟--%>
+<%--搜索表单--%>
 <div class="search-form form-horizontal">
     <div class="form-group">
-        <label class="col-sm-2 control-label">鍏抽敭瀛楋細</label>
+        <label class="col-sm-2 control-label">关键字：</label>
 
         <div class="col-sm-3">
-            <input type="text" name="keyword" class="form-control keyword" placeholder="璇疯緭鍏ユ煡璇㈠叧閿瓧...">
+            <input type="text" name="keyword" class="form-control keyword" placeholder="请输入查询关键字...">
         </div>
 
         <div class="col-sm-1">
-            <button class="btn btn-primary search">鎼滅储</button>
+            <button class="btn btn-primary search">搜索</button>
         </div>
         <div class="col-sm-6">
-            <button class="btn btn-primary add">娣诲姞</button>
+            <button class="btn btn-primary add">添加</button>
         </div>
     </div>
 </div>
@@ -41,9 +39,9 @@
     <thead>
     <tr>
         <th data-field="id">ID</th>
-        <th data-field="rolename" data-editable="true">瑙掕壊鍚嶅瓧</th>
-        <th data-field="rolepower" data-editable="true">瑙掕壊鏉冮檺</th>
-        <th data-field="option">鎿嶄綔</th>
+        <th data-field="rolename" data-editable="true">角色名字</th>
+        <th data-field="rolepower" data-editable="true">角色权限</th>
+        <th data-field="option">操作</th>
     </tr>
     </thead>
 </table>

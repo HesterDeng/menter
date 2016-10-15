@@ -10,7 +10,6 @@ import service.StudentService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Esther on 2016/8/20.
@@ -139,6 +138,16 @@ public class StudentServiceImpl implements StudentService {
         pageList.put("total",studentRepository.teasCount(studentid, page));
         pageList.put("rows",studentRepository.selectTeas(studentid, page));
         return pageList;
+    }
+
+    @Override
+    public Boolean isselect(Long id) {
+        return studentRepository.isselect(id);
+    }
+
+    @Override
+    public void updateIsselect(Long id) {
+        studentRepository.updateIsselect(id);
     }
 
 

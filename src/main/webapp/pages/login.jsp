@@ -5,46 +5,44 @@
   Time: 11:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="/js/login.js"></script>
     <link href="/css/login.css" rel="stylesheet" />
-    <title>ÁôªÂΩï</title>
+    <title>µ«¬º</title>
 </head>
 <body class="body">
     <div class="form-container form-body">
         <form id="loginForm">
             <div class="inputs">
             <div class="form-group">
-                <h4 class="modal-title">ÁôªÂΩï</h4>
+                <h4 class="modal-title">µ«¬º</h4>
             </div>
             <div class="form-group">
-                <label class="control-label">Áî®Êà∑Âêç</label>
+                <label class="control-label">”√ªß√˚</label>
                 <input type="text" class="form-control" id="username">
             </div>
             <div class="form-group">
-                <label class="control-label">ÂØÜÁ†Å</label>
+                <label class="control-label">√‹¬Î</label>
                 <input type="password" class="form-control" id="password">
             </div>
                 <div class="radios clearfloat">
                     <div class="radio radio-public">
                         <label>
-                            <input type="radio" name="optionsRadios" id="student" value="student" checked> Â≠¶Áîü
+                            <input type="radio" name="optionsRadios" id="student" value="student" checked> —ß…˙
                         </label>
                     </div>
                     <div class="radio radio-public">
                         <label>
-                            <input type="radio" name="optionsRadios" id="teacher" value="teacher">ËÄÅÂ∏à
+                            <input type="radio" name="optionsRadios" id="teacher" value="teacher">¿œ ¶
                         </label>
                     </div>
                     <div class="radio radio-public">
                         <label>
-                            <input type="radio" name="optionsRadios" id="manager" value="manager">ÁÆ°ÁêÜÂëò
+                            <input type="radio" name="optionsRadios" id="manager" value="manager">π‹¿Ì‘±
                         </label>
                     </div>
                 </div>

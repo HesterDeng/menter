@@ -3,7 +3,6 @@ package action;
 import dto.Cv;
 import dto.Page;
 import dto.Teacher;
-import dto.TeacherCV;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import service.TeacherService;
 import utils.WebResponse;
 import utils.rest.annotation.Get;
 import utils.rest.annotation.Post;
-import utils.rest.annotation.Put;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -72,11 +70,18 @@ public class TeacherAction {
 
     @Get("updatePassword")
     @ResponseBody
-    public WebResponse updatePassword(@RequestParam("id")Long id,@RequestParam("password")String password){
+    public WebResponse updatePassword(HttpServletRequest request,@RequestParam("password")String password){
+        Long id=(Long)request.getSession().getAttribute("id");
         Teacher teacher = new Teacher();
         teacher.setId(id);
         teacher.setPassword(password);
         return WebResponse.success(teacherService.updatePassword(teacher));
+    }
+
+    @Get("isselect")
+    @ResponseBody
+    public WebResponse isselect(){
+        return WebResponse.success(teacherService.isselect());
     }
 
     @Get("getCV")

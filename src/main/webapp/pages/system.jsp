@@ -5,7 +5,7 @@
   Time: 12:11
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <html>
 <head>
@@ -15,39 +15,51 @@
 <body>
 <form class="form-horizontal" role="form">
   <div class="form-group">
-    <label class="col-sm-2 control-label">è€å¸ˆå¯ä»¥é€‰æ‹©çš„æœ€å¤§æ•°</label>
+    <label class="col-sm-2 control-label">ÀÏÊ¦¿ÉÒÔÑ¡ÔñµÄ×î´óÊý</label>
     <div class="col-sm-5">
       <p class="form-control-static" id="teacherNumber"></p>
     </div>
-    <div class="col-md-5"><button type="button" class="btn btn-default" data-target="#teacherModal" data-toggle="modal">æ›´æ–°</button></div>
+    <div class="col-md-5"><button type="button" class="btn btn-default" data-target="#teacherModal" data-toggle="modal">¸üÐÂ</button></div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">å­¦ç”Ÿå¯ä»¥é€‰æ‹©çš„æœ€å¤§æ•°</label>
+    <label class="col-sm-2 control-label">Ñ§Éú¿ÉÒÔÑ¡ÔñµÄ×î´óÊý</label>
     <div class="col-sm-5">
       <p class="form-control-static" id="studentNumber"></p>
     </div>
-    <div class="col-md-5"><button type="button" class="btn btn-default" data-target="#studentModal" data-toggle="modal">æ›´æ–°</button></div>
+    <div class="col-md-5"><button type="button" class="btn btn-default" data-target="#studentModal" data-toggle="modal">¸üÐÂ</button></div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">ç³»ç»Ÿæ‰€å¾—æ€»åˆ†</label>
+    <label class="col-sm-2 control-label">ÏµÍ³ËùµÃ×Ü·Ö</label>
     <div class="col-sm-10">
       <p class="form-control-static" id="marksum"></p>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">å‚ä¸Žè¯„åˆ†çš„äººæ•°</label>
+    <label class="col-sm-2 control-label">²ÎÓëÆÀ·ÖµÄÈËÊý</label>
     <div class="col-sm-10">
       <p class="form-control-static" id="usernumber"></p>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">ç³»ç»Ÿå¾—åˆ†çš„å¹³å‡æ•°</label>
+    <label class="col-sm-2 control-label">ÏµÍ³µÃ·ÖµÄÆ½¾ùÊý</label>
     <div class="col-sm-10">
       <p class="form-control-static" id="avg"></p>
     </div>
   </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="isResult()">
+      ÅÐ¶ÏËùÓÐÑ§ÉúÊÇ·ñ±»Ñ¡Ôñ
+    </button>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">½¨Òé×ÛºÏ</h3>
+    </div>
+    <div class="panel-body" id="advice">
+    </div>
+  </div>
 </form>
-<!-- æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
+<!-- Ä£Ì¬¿ò£¨Modal£© -->
 <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -61,22 +73,22 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="control-label">è€å¸ˆå¯ä»¥é€‰æ‹©çš„æœ€å¤§æ•°</label>
+          <label class="control-label">ÀÏÊ¦¿ÉÒÔÑ¡ÔñµÄ×î´óÊý</label>
           <input type="text" class="form-control" id="teachernumbernew">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">å…³é—­
+        <button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ
         </button>
         <button type="button" class="btn btn-primary" onclick="updateTeacher()" data-dismiss="modal">
-          ç¡®å®š
+          È·¶¨
         </button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
 
-<!-- æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
+<!-- Ä£Ì¬¿ò£¨Modal£© -->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -90,15 +102,15 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="control-label">å­¦ç”Ÿå¯ä»¥é€‰æ‹©çš„æœ€å¤§æ•°</label>
+          <label class="control-label">Ñ§Éú¿ÉÒÔÑ¡ÔñµÄ×î´óÊý</label>
           <input type="text" class="form-control" id="studentnumbernew">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">å…³é—­
+        <button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ
         </button>
         <button type="button" class="btn btn-primary" onclick="updateStudent()" data-dismiss="modal">
-          ç¡®å®š
+          È·¶¨
         </button>
       </div>
     </div><!-- /.modal-content -->

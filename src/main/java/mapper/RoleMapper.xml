@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.RoleRepository">
-    <select id="list" resultType="HashMap">
+    <select id="list" resultType="java.util.HashMap">
         SELECT id,rolename,rolepower FROM role LIMIT ${pageNumber},${pageSize};
     </select>
-    <select id="listCount" resultType="Integer">
+    <select id="listCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS total FROM role;
     </select>
-    <select id="getPower" resultType="Integer">
+    <select id="getPower" resultType="java.lang.Integer">
         SELECT rolepower FROM role WHERE id = ${roleid};
     </select>
     <insert id="addRole">
-        <selectKey resultType="Long" keyProperty="role.id" order="AFTER">
+        <selectKey resultType="java.lang.Long" keyProperty="role.id" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
         INSERT INTO role (rolename,rolepower) VALUES (#{role.rolename},#{role.rolepower});

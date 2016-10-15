@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.StudentRepository">
-    <select id="list" resultType="HashMap">
+    <select id="list" resultType="java.util.HashMap">
         SELECT id,name,sex,grade,tellphone,qq,email,cvid FROM student LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="listCount" resultType="Integer">
+    <select id="listCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS total FROM student;
     </select>
     <insert id="addStudent">
-        <selectKey resultType="Long" keyProperty="student.id" order="AFTER">
+        <selectKey resultType="java.lang.Long" keyProperty="student.id" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
         INSERT INTO student (name,password) VALUES (#{student.name},#{student.password});
@@ -18,10 +18,10 @@
     </delete>
 
     <select id="login" resultType="dto.Student">
-        SELECT id,name,password FROM student WHERE name = #{name};
+        SELECT id,name,password,islogin FROM student WHERE name = #{name};
     </select>
     <update id="updatePassword">
-        UPDATE student SET password=#{student.password} WHERE id = #{student.id};
+        UPDATE student SET password=#{student.password},islogin=TRUE WHERE id = #{student.id};
     </update>
     <select id="selectById" resultType="dto.Student">
         SELECT name,sex,grade,tellphone,qq,email,cvid FROM student WHERE id = ${id};
@@ -40,14 +40,14 @@
         INSERT INTO stu_tea (studentid,teacherid,listnumber)
         VALUES (#{stuTea.studentid},#{stuTea.teacherid},#{stuTea.listnumber});
     </insert>
-    <select id="getMax" resultType="Integer">
+    <select id="getMax" resultType="java.lang.Integer">
         SELECT MAX(listnumber) FROM stu_tea WHERE studentid=#{studentid};
     </select>
-    <select id="teachers" resultType="HashMap">
+    <select id="teachers" resultType="java.util.HashMap">
         SELECT listnumber,id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid
         FROM teacher JOIN stu_tea ON id=teacherid WHERE studentid=#{studentid} LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="teacherCount" resultType="Integer">
+    <select id="teacherCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM stu_tea WHERE studentid=#{studentid};
     </select>
     <update id="up">
@@ -63,18 +63,24 @@
         DELETE FROM stu_tea WHERE studentid=#{studentid} AND listnumber=#{listnumber};
     </delete>
 
-    <select id="search" resultType="HashMap">
+    <select id="search" resultType="java.util.HashMap">
         SELECT id,name,sex,grade,tellphone,qq,email,cvid FROM student WHERE name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="searchCount" resultType="Integer">
+    <select id="searchCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM student WHERE name LIKE "%${page.search}%";
     </select>
-    <select id="selectTeas" resultType="HashMap">
+    <select id="selectTeas" resultType="java.util.HashMap">
         SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher
         WHERE id NOT IN (SELECT teacherid AS id FROM stu_tea WHERE studentid=#{studentid})AND name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="teasCount" resultType="Integer">
+    <select id="teasCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM teacher
         WHERE id NOT IN (SELECT teacherid AS id FROM stu_tea WHERE studentid=#{studentid})AND name LIKE "%${page.search}%";
     </select>
+    <select id="isselect" resultType="java.lang.Boolean">
+        SELECT isselect FROM student WHERE id=#{id};
+    </select>
+    <update id="updateIsselect">
+        UPDATE student SET isselect=1 WHERE id=#{id};
+    </update>
 </mapper>

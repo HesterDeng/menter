@@ -1,3 +1,17 @@
+$(document).ready(function(){
+    $.ajax({
+        url: "/teacher/isselect",
+        type: "Get",
+        dataType : "json"
+    }).done(function(result){
+        if(result.result==false){
+            $(".option").addClass("hide");
+        }
+    }).fail(function(){
+        alert("服务器问题，请联系管理员");
+    });
+});
+
 function nameFormatter(value) {
     if(value!=undefined){
         return '<a href="javascript:void(0)" onclick="getCV(' + value + ')">more</a>';

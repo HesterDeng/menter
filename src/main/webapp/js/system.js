@@ -1,38 +1,19 @@
 $(document).ready(function(){
     $.ajax({
-        url: "/user/getTeacherNum",
-        type: "GET",
-        dataType : "json"
-    }).done(function(result){
-        if(result.success){
-            $("#teacherNumber").html(result.result);
-        }
-    }).fail(function(){
-        alert("·şÎñÆ÷ÎÊÌâ£¬ÇëÁªÏµ¹ÜÀíÔ±");
-    });
-    $.ajax({
-        url: "/user/getStudentNum",
-        type: "GET",
-        dataType : "json"
-    }).done(function(result){
-        if(result.success){
-            $("#studentNumber").html(result.result);
-        }
-    }).fail(function(){
-        alert("·şÎñÆ÷ÎÊÌâ£¬ÇëÁªÏµ¹ÜÀíÔ±");
-    });
-    $.ajax({
         url: "/user/markSum",
         type: "GET",
         dataType : "json"
     }).done(function(result){
         if(result.success){
+            $("#teacherNumber").html(result.result["teacherselect"]);
+            $("#studentNumber").html(result.result["studentselect"]);
             $("#marksum").html(result.result["marksum"]);
             $("#usernumber").html(result.result["usernumber"]);
             $("#avg").html(result.result["marksum"]/result.result["usernumber"]);
+            $("#advice").html(result.result["advice"]);
         }
     }).fail(function(){
-        alert("·şÎñÆ÷ÎÊÌâ£¬ÇëÁªÏµ¹ÜÀíÔ±");
+        alert("æœåŠ¡å™¨é—®é¢˜ï¼Œè¯·è”ç³»ç®¡ç†å‘˜");
     });
 });
 
@@ -51,7 +32,7 @@ function updateTeacher(){
                $("#teacherNumber").html(teachernumber);
             }
         }).fail(function(){
-            alert("·şÎñÆ÷ÎÊÌâ£¬ÇëÁªÏµ¹ÜÀíÔ±");
+            alert("æœåŠ¡å™¨é—®é¢˜ï¼Œè¯·è”ç³»ç®¡ç†å‘˜");
         });
     }
 }
@@ -71,7 +52,23 @@ function updateStudent(){
                 $("#studentNumber").html(studentnumber);
             }
         }).fail(function(){
-            alert("·şÎñÆ÷ÎÊÌâ£¬ÇëÁªÏµ¹ÜÀíÔ±");
+            alert("æœåŠ¡å™¨é—®é¢˜ï¼Œè¯·è”ç³»ç®¡ç†å‘˜");
         });
     }
+}
+
+function isResult(){
+    $.ajax({
+        url: "/user/isResult",
+        type: "GET",
+        dataType : "json"
+    }).done(function(result){
+        if(result.success){
+            alert("æ‰€æœ‰å­¦ç”Ÿå·²è¢«é€‰æ‹©ï¼Œé‚®ç®±å·²å‘é€");
+        }else{
+            alert("è¿˜æœ‰å­¦ç”Ÿæœªè¢«é€‰æ‹©ï¼Œè¯·ç£ä¿ƒå­¦ç”Ÿæˆ–å¯¼å¸ˆå°½å¿«é€‰æ‹©");
+        }
+    }).fail(function(){
+        alert("æœåŠ¡å™¨é—®é¢˜ï¼Œè¯·è”ç³»ç®¡ç†å‘˜");
+    });
 }

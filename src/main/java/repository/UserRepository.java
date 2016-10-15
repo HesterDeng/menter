@@ -1,6 +1,7 @@
 package repository;
 
 import dto.Page;
+import dto.Result;
 import dto.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,13 @@ public interface UserRepository {
      * @return id
      */
     Long save(@Param("user") User user);
+
+    /**
+     * 更新密码
+     * @param user
+     * @return
+     */
+    int updatePassword(@Param("user") User user);
 
     /**
      * 更新用户
@@ -62,4 +70,22 @@ public interface UserRepository {
      * @return
      */
     Integer searchCount(@Param("page")Page page);
+
+    /**
+     * 被所有导师拒绝的学生的邮箱
+     * @return
+     */
+    List<String> allReject();
+
+    /**
+     * 还没有被选择的学生人数
+     * @return
+     */
+    int endCount();
+
+    /**
+     * 最后输出结果
+     * @return
+     */
+    List<Result> endResult();
 }

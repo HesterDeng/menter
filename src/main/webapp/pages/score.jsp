@@ -5,30 +5,30 @@
   Time: 20:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <html>
 <head>
   <script type="text/javascript" src="/js/score.js"></script>
-    <title>è¯„ä»·åˆ†æ•°åŠå»ºè®®</title>
+    <title>ÆÀ¼Û·ÖÊý¼°½¨Òé</title>
 </head>
 <body>
 <form class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">ä½ çš„å»ºè®®</label>
+    <label for="advice" class="col-sm-2 control-label">ÄãµÄ½¨Òé</label>
     <div class="col-sm-10">
-      <textarea rows="4" class="form-control" id="inputEmail3"></textarea>
+      <textarea rows="4" class="form-control" id="advice"></textarea>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">ä½ çš„åˆ†æ•°</label>
+    <label class="col-sm-2 control-label">ÄãµÄ·ÖÊý</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="mark">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default" id="addMark">ç¡®å®š</button>
+      <button type="submit" class="btn btn-default" id="addMark">È·¶¨</button>
     </div>
   </div>
 </form>

@@ -5,12 +5,12 @@
   Time: 20:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <%@include file="common.jsp"%>
 <html>
 <head>
   <script type="text/javascript" src="/js/studentCV.js"></script>
-  <title>å­¦ç”Ÿç®€åŽ†</title>
+  <title>Ñ§Éú¼òÀú</title>
 </head>
 <body>
 <input class="hide idvalue" value="<%=session.getAttribute("id") %>">
@@ -19,21 +19,21 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>åç§°</th>
-      <th>å€¼</th></tr>
+      <th>Ãû³Æ</th>
+      <th>Öµ</th></tr>
     </thead>
     <tbody>
     <tr>
-      <td class="col-md-4">å§“å</td>
-      <td class="edit col-md-8" id="name"></td></tr>
+      <td class="col-md-4">ÐÕÃû</td>
+      <td class="col-md-8" id="name"></td></tr>
     <tr>
-      <td>æ€§åˆ«</td>
+      <td>ÐÔ±ð</td>
       <td class="edit" id="sex"></td></tr>
     <tr>
-      <td>å¹´çº§</td>
+      <td>Äê¼¶</td>
       <td class="edit" id="grade"></td></tr>
     <tr>
-      <td>ç”µè¯å·ç </td>
+      <td>µç»°ºÅÂë</td>
       <td class="edit" id="tellphone"></td></tr>
     <tr>
       <td>QQ</td>
@@ -45,17 +45,17 @@
   </table>
 </div>
 <div class="form-group">
-  <label for="name">ç»åŽ†</label>
+  <label for="name">¾­Àú</label>
   <textarea class="form-control" rows="4" id="experience"></textarea>
 </div>
 <div class="form-group">
-  <label for="name">æˆæžœ</label>
+  <label for="name">³É¹û</label>
   <textarea class="form-control" rows="4" id="result"></textarea>
 </div>
 <div class="form-group">
-  <label for="name">å…¶ä»–</label>
+  <label for="name">ÆäËû</label>
   <textarea class="form-control" rows="4" id="other"></textarea>
 </div>
-<button type="button" class="btn btn-primary btn-lg" id="save">ä¿å­˜</button>
+<button type="button" class="btn btn-primary btn-lg" id="save">±£´æ</button>
 </body>
 </html>

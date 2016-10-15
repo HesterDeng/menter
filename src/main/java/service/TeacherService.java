@@ -1,11 +1,9 @@
 package service;
 
 import dto.Page;
-import dto.Student;
 import dto.Teacher;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Esther on 2016/8/20.
@@ -102,4 +100,10 @@ public interface TeacherService {
      * @return
      */
     int updateCvid(Long cvid,Long id);
+
+    /**
+     * 学生志愿填完与否
+     * @return
+     */
+    Boolean isselect();
 }

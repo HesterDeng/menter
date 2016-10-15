@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.UserRepository">
     <insert id="save">
-        <selectKey resultType="Long" keyProperty="user.id" order="AFTER">
+        <selectKey resultType="java.lang.Long" keyProperty="user.id" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
         insert INTO user
@@ -18,19 +18,39 @@
     </delete>
 
     <select id="selectUserByName" resultType="dto.User">
-        SELECT id,username,password FROM USER WHERE username = #{username};
+        SELECT id,username,password,islogin FROM USER WHERE username = #{username};
     </select>
 
-    <select id="list" resultType="HashMap">
+    <select id="list" resultType="java.util.HashMap">
         SELECT id,username,roleid FROM user LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="listCount" resultType="Integer">
+    <select id="listCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS total FROM USER;
     </select>
-    <select id="search" resultType="HashMap">
+    <select id="search" resultType="java.util.HashMap">
         SELECT id,username,roleid FROM user WHERE username LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="searchCount" resultType="Integer">
+    <select id="searchCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM user WHERE username LIKE "%${page.search}%";
+    </select>
+    <update id="updatePassword">
+        UPDATE user SET password=#{user.password},islogin=TRUE WHERE id=#{user.id};
+    </update>
+
+    <select id="allReject" resultType="java.lang.String">
+        SELECT email FROM student WHERE id IN (SELECT studentid FROM stu_tea  GROUP BY studentid HAVING MAX(number)>MAX(listnumber));
+    </select>
+    <select id="endCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM student
+        WHERE id NOT IN
+        (SELECT studentid FROM stu_tea
+        GROUP BY studentid HAVING SUM(isselect)=1);
+    </select>
+    <select id="endResult" resultType="dto.Result">
+        SELECT s.`name` AS stuname,t.`name` AS teaname
+        FROM stu_tea AS st
+        JOIN student AS s ON st.`studentid`=s.`id`
+        JOIN teacher AS t ON st.`teacherid`=t.`id`
+        WHERE st.`isselect`=1;
     </select>
 </mapper>

@@ -1,3 +1,17 @@
+$(document).ready(function(){
+    $.ajax({
+        url: "/student/isselect",
+        type: "Get",
+        dataType : "json"
+    }).done(function(result){
+        if(result.result){
+            $(".option").addClass("hide");
+        }
+    }).fail(function(){
+        alert("服务器问题，请联系管理员");
+    });
+});
+
 function nameFormatter(value) {
     if(value!=undefined){
         return '<a href="javascript:void(0)" onclick="getCV(' + value + ')"> more</a>';
@@ -6,10 +20,10 @@ function nameFormatter(value) {
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="up" href="javascript:void(0)" title="Up">',
+        '<a class="up option" href="javascript:void(0)" title="Up">',
         '<i class="glyphicon glyphicon-arrow-up"></i>',
         '</a>',
-        '<a class="delete" href="javascript:void(0)" data-target="#deleteModal" title="Delete" data-toggle="modal" >',
+        '<a class="delete option" href="javascript:void(0)" data-target="#deleteModal" title="Delete" data-toggle="modal" >',
         '<i class="glyphicon glyphicon-remove"></i>',
         '</a>'
     ].join('');
@@ -83,6 +97,20 @@ function getCV(value){
             $("#other").html(result.result["cvother"]);
         }else{
             alert("添加失败");
+        }
+    }).fail(function(){
+        alert("服务器问题，请联系管理员");
+    });
+}
+
+function submitSelect(){
+    $.ajax({
+        url: "/student/updateIsselect",
+        type: "Get",
+        dataType : "json"
+    }).done(function(result){
+        if(result.success){
+            location.reload();
         }
     }).fail(function(){
         alert("服务器问题，请联系管理员");

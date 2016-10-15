@@ -5,7 +5,7 @@
   Time: 15:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=GB2312" %>
 <html>
 <head>
     <script type="text/javascript" src="/plugin/jquery/jquery-1.11.1.min.js"></script>

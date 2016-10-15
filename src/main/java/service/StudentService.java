@@ -5,7 +5,6 @@ import dto.StuTea;
 import dto.Student;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Esther on 2016/8/20.
@@ -96,4 +95,17 @@ public interface StudentService {
     int updateCvid(Long cvid,Long id);
 
     HashMap<String, Object> selectTeas(Long studentid,Page page);
+
+    /**
+     * 学生选择与否
+     * @param id
+     * @return
+     */
+    Boolean isselect(Long id);
+
+    /**
+     * 更新isselect
+     * @param id
+     */
+    void updateIsselect(Long id);
 }

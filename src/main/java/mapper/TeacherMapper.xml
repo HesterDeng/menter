@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="repository.TeacherRepository">
-    <select id="list" resultType="HashMap">
+    <select id="list" resultType="java.util.HashMap">
         SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="listCount" resultType="Integer">
+    <select id="listCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS total FROM teacher;
     </select>
 
     <insert id="addTeacher">
-        <selectKey resultType="Long" keyProperty="teacher.id" order="AFTER">
+        <selectKey resultType="java.lang.Long" keyProperty="teacher.id" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
         INSERT INTO teacher (name,password) VALUES (#{teacher.name},#{teacher.password});
@@ -18,10 +18,10 @@
         DELETE FROM teacher WHERE id=${teacherid};
     </delete>
     <select id="login" resultType="dto.Teacher">
-        SELECT id,name,password FROM teacher WHERE name = #{name};
+        SELECT id,name,password,islogin FROM teacher WHERE name = #{name};
     </select>
     <update id="updatePassword">
-        UPDATE teacher SET password=#{teacher.password} WHERE id = #{teacher.id};
+        UPDATE teacher SET password=#{teacher.password},islogin=TRUE WHERE id = #{teacher.id};
     </update>
     <select id="selectById" resultType="dto.Teacher">
         SELECT name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher WHERE id=${id};
@@ -35,20 +35,20 @@
         WHERE id =#{teacher.id};
     </update>
 
-    <select id="listStudent" resultType="HashMap">
+    <select id="listStudent" resultType="java.util.HashMap">
         SELECT id,name,sex,grade,tellphone,qq,email,cvid
          FROM student WHERE id IN
         (SELECT studentid FROM stu_tea WHERE listnumber=number AND teacherid=${teacherid} AND isselect=FALSE)
         AND name LIKE  "%${page.search}%"
         LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="listCountStu" resultType="Integer">
+    <select id="listCountStu" resultType="java.lang.Integer">
         SELECT COUNT(*)
          FROM student WHERE id IN
         (SELECT studentid FROM stu_tea WHERE listnumber=number AND teacherid=${teacherid} AND isselect=FALSE)
         AND name LIKE  "%${page.search}%";
     </select>
-    <select id="countStudent" resultType="Integer">
+    <select id="countStudent" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM stu_tea WHERE teacherid = ${teacherid} AND isselect=TRUE;
     </select>
     <update id="checkStudent">
@@ -60,26 +60,30 @@
     <update id="deleteStudent">
         UPDATE stu_tea SET isselect=FALSE WHERE studentid=${studentid} AND teacherid=${teacherid};
     </update>
-    <select id="selectStudents" resultType="HashMap">
+    <select id="selectStudents" resultType="java.util.HashMap">
         SELECT id,name,sex,grade,tellphone,qq,email,cvid
          FROM student WHERE id IN
          (SELECT studentid FROM stu_tea WHERE teacherid=${teacherid} AND isselect=TRUE)
          AND name LIKE  "%${page.search}%"
          LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="stuCount" resultType="Integer">
+    <select id="stuCount" resultType="java.lang.Integer">
         SELECT COUNT(*)
          FROM student WHERE id IN
          (SELECT studentid FROM stu_tea WHERE teacherid=${teacherid} AND isselect=TRUE)
          AND name LIKE  "%${page.search}%";
     </select>
-    <select id="search" resultType="HashMap">
+    <select id="search" resultType="java.util.HashMap">
         SELECT id,name,sex,xueli,xuewei,position,duty,schoolage,tellphone,email,qq,campus,cvid FROM teacher WHERE name LIKE "%${page.search}%" LIMIT #{page.offset},#{page.limit};
     </select>
-    <select id="searchCount" resultType="Integer">
+    <select id="searchCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM teacher WHERE name LIKE "%${page.search}%";
     </select>
     <update id="updateCvid">
         UPDATE teacher SET cvid=${cvid} WHERE id=${id};
     </update>
+
+    <select id="isselect" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM student WHERE isselect=0;
+    </select>
 </mapper>
