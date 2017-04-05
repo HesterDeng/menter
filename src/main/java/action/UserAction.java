@@ -147,6 +147,7 @@ public class UserAction {
         List<String> allReject = userService.allReject();
         if(allReject!=null&&allReject.size()!=0){
             SimpleMailSender sender = new SimpleMailSender("1334995739@qq.com","pcihjbujzzdpbadi");
+            //注意：这儿有中文，需要把字体改为utf-8
             sender.send(allReject,"你选择的导师已全部拒绝你，请登陆导师选择系统，另行选择！","导师选择系统邮件");
             return WebResponse.success(false);
         }else {
